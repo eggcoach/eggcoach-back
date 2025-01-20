@@ -6,13 +6,12 @@ spring:
     username: root
     password: '0000'
     driver-class-name: com.mysql.cj.jdbc.Driver
-    sql:
-      init:
-        mode: never
+  sql:
+    init:
+      mode: never
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect
         show_sql: true
         format_sql: true
         use_sql_comments: true
