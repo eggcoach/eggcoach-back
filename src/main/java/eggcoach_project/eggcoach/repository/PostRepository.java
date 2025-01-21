@@ -2,6 +2,13 @@ package eggcoach_project.eggcoach.repository;
 
 import eggcoach_project.eggcoach.domain.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.Optional;
 
 public interface PostRepository extends JpaRepository<Post, Integer> {
+
+    @Query(value = "select distinct p from Post p join fetch p.comments where p.id = :id")
+    Optional<Post> findPostById(@Param("id") Integer postId);
 }

@@ -3,11 +3,16 @@ package eggcoach_project.eggcoach.domain;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Builder
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Post {
@@ -20,13 +25,20 @@ public class Post {
     @JoinColumn(name = "CATEGORY_ID")
     private Category category;
 
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments = new ArrayList<>();
+
     private String title;
     private String author;
     private String content;
     @ColumnDefault("0")
-    private int likes;
+    private Integer likes;
     @ColumnDefault("0")
-    private int view_count;
+    private Integer view_count;
     @ColumnDefault("0")
-    private int comment_count;
+    private Integer comment_count;
+
+    public void addViewCount() {
+        view_count++;
+    }
 }

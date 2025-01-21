@@ -3,10 +3,14 @@ package eggcoach_project.eggcoach.service;
 import eggcoach_project.eggcoach.domain.Category;
 import eggcoach_project.eggcoach.domain.Post;
 import eggcoach_project.eggcoach.dto.CommunityRequestDTO;
+import eggcoach_project.eggcoach.dto.CommunityResponseDTO;
 import eggcoach_project.eggcoach.repository.CategoryRepository;
 import eggcoach_project.eggcoach.repository.PostRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -26,5 +30,29 @@ public class CommunityService {
                 .build();
 
         postRepository.save(post);
+    }
+
+    @Transactional
+    public CommunityResponseDTO.PostDTO findPost(Integer postId) {
+
+        Post post = postRepository.findPostById(postId).get();
+        post.addViewCount();
+
+        List<CommunityResponseDTO.CommentDTO> commentDTOList = post.getComments().stream()
+                .map(comment -> CommunityResponseDTO.CommentDTO.builder()
+                        .author(comment.getAuthor())
+                        .content(comment.getContent())
+                        .build())
+                .toList();
+
+        return CommunityResponseDTO.PostDTO.builder()
+                .title(post.getTitle())
+                .author(post.getAuthor())
+                .content(post.getContent())
+                .likes(post.getLikes())
+                .view_counts(post.getView_count())
+                .comment_counts(post.getComment_count())
+                .comments(commentDTOList)
+                .build();
     }
 }
