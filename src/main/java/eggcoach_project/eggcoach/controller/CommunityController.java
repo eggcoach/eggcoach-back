@@ -24,4 +24,10 @@ public class CommunityController {
 
         return communityService.findPost(postId);
     }
+
+    @PutMapping("/{postId}")
+    public void updatePost(@PathVariable Integer postId, @RequestBody CommunityRequestDTO.PostDTO postDTO) {
+
+        communityService.updatePost(postId, postDTO);
+    }
 }

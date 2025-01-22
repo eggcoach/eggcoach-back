@@ -55,4 +55,12 @@ public class CommunityService {
                 .comments(commentDTOList)
                 .build();
     }
+
+    @Transactional
+    public void updatePost(Integer postId, CommunityRequestDTO.PostDTO postDTO) {
+
+        Post post = postRepository.findById(postId).get();
+        post.setTitle(postDTO.getTitle());
+        post.setContent(postDTO.getContent());
+    }
 }
