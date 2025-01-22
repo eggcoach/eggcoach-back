@@ -9,6 +9,6 @@ import java.util.Optional;
 
 public interface PostRepository extends JpaRepository<Post, Integer> {
 
-    @Query(value = "select distinct p from Post p join fetch p.comments where p.id = :id")
+    @Query(value = "select distinct p from Post p left join fetch p.comments where p.id = :id")
     Optional<Post> findPostById(@Param("id") Integer postId);
 }
