@@ -23,7 +23,7 @@ public class Post {
     @JoinColumn(name = "CATEGORY_ID")
     private Category category;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
     private String title;

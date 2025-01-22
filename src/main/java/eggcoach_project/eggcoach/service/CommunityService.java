@@ -63,4 +63,10 @@ public class CommunityService {
         post.setTitle(postDTO.getTitle());
         post.setContent(postDTO.getContent());
     }
+
+    public void deletePost(Integer postId) {
+
+        Post post = postRepository.findById(postId).get();
+        postRepository.delete(post);
+    }
 }

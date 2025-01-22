@@ -30,4 +30,10 @@ public class CommunityController {
 
         communityService.updatePost(postId, postDTO);
     }
+
+    @DeleteMapping("/{postId}")
+    public void deletePost(@PathVariable Integer postId) {
+
+        communityService.deletePost(postId);
+    }
 }
